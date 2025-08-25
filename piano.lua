@@ -1,7 +1,7 @@
--- CAO Piano Hub (VirtualInputManager Version)
+-- CAO Piano Hub (VirtualUser Version)
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
-local VirtualInputManager = game:GetService("VirtualInputManager")
+local VirtualUser = game:GetService("VirtualUser")
 
 -- Songs Table
 local songs = {
@@ -11,14 +11,16 @@ local songs = {
 
 -- Press Key Function
 local function pressKey(key)
-    VirtualInputManager:SendTextInputCharacter(key)
-    task.wait(0.25)
+    VirtualUser:SendKeyEvent(true, key, false, game)
+    task.wait(0.15)
+    VirtualUser:SendKeyEvent(false, key, false, game)
 end
 
 -- Play Song Function
 local function playSong(song)
     for _, key in ipairs(song) do
         pressKey(key)
+        task.wait(0.25)
     end
 end
 
